@@ -17,9 +17,10 @@ const BulkUpload2 = () => {
   };
 
   // Add a new set of input fields
-  const addField = (e) => {
+  const addField = (e, index) => {
     e.preventDefault();
-    setBlogs([...blogs, { title: "", body: "", author: "mario" }]);
+    blogs.splice(index + 1, 0, { title: "", body: "", author: "mario" });
+    setBlogs([...blogs]);
   };
 
   // Delete a specific set of input fields
@@ -71,7 +72,7 @@ const BulkUpload2 = () => {
           <div key={index} className="container">
             <input
               type="text"
-              placeholder="title"
+              placeholder={`title ` + (index + 1)}
               className="input-field"
               value={blog.title}
               onChange={(e) =>
@@ -81,13 +82,13 @@ const BulkUpload2 = () => {
             />
             <input
               type="text"
-              placeholder="body"
+              placeholder={`body ` + (index + 1)}
               className="input-field"
               value={blog.body}
               onChange={(e) => handleInputChange(index, "body", e.target.value)}
               required
             />
-            <button className="add-button" onClick={addField}>
+            <button className="add-button" onClick={(e) => addField(e, index)}>
               +
             </button>
             {index !== 0 && (
